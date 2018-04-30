@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+  <html lang="pt-br">
+    <head>
+      <meta charset="utf-8"/>
+      <title>Kanban Server</title>
+      <style>
+        body {
+          background: #37474F;
+        }
+        ul {
+          list-style: none;
+          width: 200px;
+        }
+        li {
+          margin-top: 5px;
+          padding: 2px;
+          border: 1px solid black;
+        }
+        a:link, a:visited {
+          text-decoration: none;
+          color: green;
+        }
+      </style>
+    </head>
+  <body>
+
+    <h1>Scrum - Entry Point</h1>
+
+    <ul>
+      <% endPoints.forEach(function(endPoint) { %>
+        <li><a href="<%= endPoint.url %>" target="_blank"> <%= endPoint.name %> </a></li>
+      <% }); %>
+    </ul>
+
+  </body>
+</html>
