@@ -7,6 +7,10 @@ export default (app, db) => {
   .forEach(file => {
     const name = file.split('.')[0]
     const route = require(path.join(__dirname, file))
-    app.use(`/${name}`, route(db[`${name}`]))
+    if (name === 'auth') {
+      app.use(`/${name}`, route(db['users']))
+    } else {
+      app.use(`/${name}`, route(db[`${name}`]))
+    }
   })
 }
