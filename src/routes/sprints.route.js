@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import auth from '../utils/auth'
 
-export default (Sprints) => {
+module.exports = (Sprints) => {
   const sprints = Router()
 
   sprints.get('/', auth, (req, res, next) => {
@@ -21,12 +21,9 @@ export default (Sprints) => {
       sprint.name = req.body.name
       sprint.started = req.body.started
       sprint.ended = req.body.ended
-      sprint.backlog = req.body.backlog
-      sprint.project = req.body.project
+      sprint.product = req.body.product
       sprint.scrum_master = req.body.scrum_master
-      sprint.scrum_team = req.body.scrum_team
-      sprint.impediments = req.body.impediments
-      sprint.save({fields: ['name', 'started', 'ended', 'backlog', 'project', 'scrum_master', 'scrum_team', 'impediments']})
+      sprint.save({fields: ['name', 'started', 'ended','product', 'scrum_master']})
     })
   })
 

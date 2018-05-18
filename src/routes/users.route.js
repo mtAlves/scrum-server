@@ -1,8 +1,9 @@
 import { Router } from 'express'
 import auth from '../utils/auth'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
-export default (Users) => {
+module.exports = (Users) => {
   const users = Router()
 
   users.get('/', auth, (req, res, next) => {
@@ -18,7 +19,18 @@ export default (Users) => {
   users.post('/', (req, res, next) => {
     req.body.password = bcrypt.hashSync(req.body.password, 7)
     Users.findOne({ where: {username: req.body.username} }).then(username => {
-      !username ? Users.create(req.body) : res.status(400).send('username already in database')
+      if (!username) {
+        Users.create(req.body).then(newUser => {
+          const token = jwt.sign({ userId: newUser.dataValues.id }, 'scrum_secret')
+          res.send({
+            userId: newUser.dataValues.id,
+            username: req.body.username,
+            token: `Bearer ${token}`
+          }).status(201).end()
+        })
+      } else {
+        res.status(409).end('username already in database')
+      }
     })
   })
 

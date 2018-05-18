@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import auth from '../utils/auth'
 
-export default (Tasks) => {
+module.exports = (Tasks) => {
   const tasks = Router()
 
   tasks.get('/', auth, (req, res, next) => {
@@ -23,8 +23,7 @@ export default (Tasks) => {
       task.started = req.body.started
       task.ended = req.body.ended
       task.sprint = req.body.sprint
-      task.impediments = req.body.impediments
-      task.save({fields: ['name', 'status', 'started', 'ended', 'sprint', 'impediments']})
+      task.save({fields: ['name', 'status', 'started', 'ended', 'sprint']})
     })
   })
 

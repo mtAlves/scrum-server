@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import auth from '../utils/auth'
 
-export default (Impediments) => {
+module.exports = (Impediments) => {
   const impediments = Router()
 
   impediments.get('/', auth, (req, res, next) => {
@@ -18,11 +18,11 @@ export default (Impediments) => {
 
   impediments.put('/:id', auth, (req, res, next) => {
     Impediments.findById(req.params.id).then(impediment => {
-      impediment.description = req.body.description
+      impediment.name = req.body.name
       impediment.sprint = req.body.sprint
       impediment.task = req.body.task
       impediment.status = req.body.status
-      impediment.save({fields: ['description', 'sprint', 'task', 'status']})
+      impediment.save({fields: ['name', 'sprint', 'task', 'status']})
     })
   })
 

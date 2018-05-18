@@ -2,7 +2,7 @@ import { Router } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-export default (Users) => {
+module.exports = (Users) => {
   const auth = Router()
 
   auth.post('/', (req, res, next) => {
@@ -12,7 +12,7 @@ export default (Users) => {
           const token = jwt.sign({ userId: result.id }, 'scrum_secret')
           res.json({
             auth: {
-              user_id: result.id,
+              idUser: result.id,
               username: result.username,
               token: `Bearer ${token}`
             }
