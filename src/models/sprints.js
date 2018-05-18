@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('sprints', {
     id: {
       type: DataTypes.INTEGER,
@@ -20,15 +20,11 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: false
     },
-    backlog: {
-      type: 'ARRAY',
-      allowNull: false
-    },
-    project: {
+    product: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'projects',
+        model: 'products',
         key: 'id'
       }
     },
@@ -39,17 +35,9 @@ module.exports = function (sequelize, DataTypes) {
         model: 'users',
         key: 'id'
       }
-    },
-    scrum_team: {
-      type: 'ARRAY',
-      allowNull: false
-    },
-    impediments: {
-      type: 'ARRAY',
-      allowNull: true
     }
   }, {
     tableName: 'sprints',
     timestamps: false
-  })
-}
+  });
+};

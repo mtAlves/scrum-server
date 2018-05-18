@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('impediments', {
+  return sequelize.define('products_backlog', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -12,28 +12,20 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    sprint: {
+    importance: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    product: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'sprints',
+        model: 'products',
         key: 'id'
       }
-    },
-    task: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'tasks',
-        key: 'id'
-      }
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false
     }
   }, {
-    tableName: 'impediments',
+    tableName: 'products_backlog',
     timestamps: false
   });
 };

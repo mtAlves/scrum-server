@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('tasks', {
     id: {
       type: DataTypes.INTEGER,
@@ -28,10 +28,6 @@ module.exports = function (sequelize, DataTypes) {
         key: 'id'
       }
     },
-    impediments: {
-      type: 'ARRAY',
-      allowNull: true
-    },
     status: {
       type: DataTypes.STRING,
       allowNull: false
@@ -39,5 +35,5 @@ module.exports = function (sequelize, DataTypes) {
   }, {
     tableName: 'tasks',
     timestamps: false
-  })
-}
+  });
+};

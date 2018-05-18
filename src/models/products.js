@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('projects', {
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('products', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -27,13 +27,9 @@ module.exports = function (sequelize, DataTypes) {
         model: 'users',
         key: 'id'
       }
-    },
-    backlog: {
-      type: 'ARRAY',
-      allowNull: false
     }
   }, {
-    tableName: 'projects',
+    tableName: 'products',
     timestamps: false
-  })
-}
+  });
+};
