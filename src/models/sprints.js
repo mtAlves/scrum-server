@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: false
     },
-    product: {
+    product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    scrum_master: {
+    scrum_master_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

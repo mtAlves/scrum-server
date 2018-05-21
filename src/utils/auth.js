@@ -8,10 +8,10 @@ export default (req, res, next) => {
       if (decoded) {
         next()
       } else {
-        res.send('Unauthorized').status(401).end()
+        res.status(401).send('Unauthorized').end()
       }
     })
   } catch (error) {
-    res.send('Unauthorized').status(401).end()
+    res.status(401).send('Unauthorized').end()
   }
 }

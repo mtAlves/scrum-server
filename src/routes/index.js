@@ -10,7 +10,7 @@ export default (app, db) => {
     if (name === 'auth') {
       app.use(`/${name}`, route(db['users']))
     } else {
-      app.use(`/${name}`, route(db[`${name}`]))
+      app.use(`/${name}`, route(db[name]))
     }
   })
 }

@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: true
     },
-    product_owner: {
+    product_owner_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

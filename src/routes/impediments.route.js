@@ -12,6 +12,16 @@ module.exports = (Impediments) => {
     Impediments.findById(req.params.id).then(result => res.json(result))
   })
 
+  impediments.get('/:filter_by/eq/:filter_value', auth, (req, res, next) => {
+    const filterBy = req.params.filter_by
+    const filterValue = req.params.filter_value
+    Impediments.findAll({
+      where: {
+        [filterBy]: filterValue
+      }
+    }).then(result => res.json(result))
+  })
+
   impediments.post('/', auth, (req, res, next) => {
     Impediments.create(req.body)
   })
@@ -19,10 +29,10 @@ module.exports = (Impediments) => {
   impediments.put('/:id', auth, (req, res, next) => {
     Impediments.findById(req.params.id).then(impediment => {
       impediment.name = req.body.name
-      impediment.sprint = req.body.sprint
-      impediment.task = req.body.task
+      impediment.sprint_id = req.body.sprint_id
+      impediment.task_id = req.body.task_id
       impediment.status = req.body.status
-      impediment.save({fields: ['name', 'sprint', 'task', 'status']})
+      impediment.save({fields: ['name', 'sprint_id', 'task_id', 'status']})
     })
   })
 

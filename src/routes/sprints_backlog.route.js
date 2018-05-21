@@ -11,6 +11,17 @@ module.exports = (SprintsBacklog) => {
   sprintsBacklog.get('/:id', auth, (req, res, next) => {
     SprintsBacklog.findById(req.params.id).then(result => res.json(result))
   })
+  
+  sprintsBacklog.get('/:filter_by/eq/:filter_value', auth, (req, res, next) => {
+    const filterBy = req.params.filter_by
+    const filterValue = req.params.filter_value
+    SprintsBacklog.findAll({
+      where: {
+        [filterBy]: filterValue
+      }
+    }).then(result => res.json(result))
+  })
+
 
   sprintsBacklog.post('/', auth, (req, res, next) => {
     SprintsBacklog.create(req.body)
@@ -19,8 +30,8 @@ module.exports = (SprintsBacklog) => {
   sprintsBacklog.put('/:id', auth, (req, res, next) => {
     SprintsBacklog.findById(req.params.id).then(sprintBacklog => {
       sprintBacklog.name = req.body.name
-      sprintBacklog.sprint = req.body.sprint
-      sprintBacklog.save({fields: ['name', 'sprint']})
+      sprintBacklog.sprint_id = req.body.sprint_id
+      sprintBacklog.save({fields: ['name', 'sprint_id']})
     })
   })
 

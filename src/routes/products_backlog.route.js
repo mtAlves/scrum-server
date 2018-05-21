@@ -12,6 +12,16 @@ module.exports = (ProductsBacklog) => {
     ProductsBacklog.findById(req.params.id).then(result => res.json(result))
   })
 
+  productsBacklog.get('/:filter_by/eq/:filter_value', auth, (req, res, next) => {
+    const filterBy = req.params.filter_by
+    const filterValue = req.params.filter_value
+    ProductsBacklog.findAll({
+      where: {
+        [filterBy]: filterValue
+      }
+    }).then(result => res.json(result))
+  })
+
   productsBacklog.post('/', auth, (req, res, next) => {
     ProductsBacklog.create(req.body)
   })
@@ -20,8 +30,8 @@ module.exports = (ProductsBacklog) => {
     ProductsBacklog.findById(req.params.id).then(productBacklog => {
       productBacklog.name = req.body.name
       productBacklog.importance = req.body.importance
-      productBacklog.product = req.body.product
-      productBacklog.save({fields: ['name', 'importance', 'product']})
+      productBacklog.product_id = req.body.product_id
+      productBacklog.save({fields: ['name', 'importance', 'product_id']})
     })
   })
 

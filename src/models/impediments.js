@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    sprint: {
+    sprint_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    task: {
+    task_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {

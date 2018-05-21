@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: true
     },
-    sprint: {
+    sprint_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

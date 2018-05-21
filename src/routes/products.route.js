@@ -12,6 +12,16 @@ module.exports = (Products) => {
     Products.findById(req.params.id).then(result => res.json(result))
   })
 
+  products.get('/:filter_by/eq/:filter_value', auth, (req, res, next) => {
+    const filterBy = req.params.filter_by
+    const filterValue = req.params.filter_value
+    Products.findAll({
+      where: {
+        [filterBy]: filterValue
+      }
+    }).then(result => res.json(result))
+  })
+
   products.post('/', auth, (req, res, next) => {
     Products.create(req.body)
   })
@@ -21,9 +31,9 @@ module.exports = (Products) => {
       product.name = req.body.name
       product.started = req.body.started
       product.ended = req.body.ended
-      product.sprint = req.body.sprint
-      product.product_owner = req.body.product_owner
-      product.save({fields: ['name', 'started', 'ended', 'sprint', 'product_owner']})
+      product.sprint_id = req.body.sprint_id
+      product.product_owner_id = req.body.product_owner_id
+      product.save({fields: ['name', 'started', 'ended', 'sprint_id', 'product_owner_id']})
     })
   })
 
