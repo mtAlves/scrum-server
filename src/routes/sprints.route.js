@@ -23,7 +23,9 @@ module.exports = (Sprints) => {
   })
 
   sprints.post('/', auth, (req, res, next) => {
-    Sprints.create(req.body)
+    Sprints.create(req.body).then(sprint => {
+      res.status(201).send(sprint)
+    })
   })
 
   sprints.put('/:id', auth, (req, res, next) => {
@@ -35,10 +37,12 @@ module.exports = (Sprints) => {
       sprint.scrum_master_id = req.body.scrum_master_id
       sprint.save({fields: ['name', 'started', 'ended','product_id', 'scrum_master_id']})
     })
+    res.status(204).end()
   })
 
   sprints.delete('/:id', auth, (req, res, next) => {
     Sprints.destroy({ where: {id: req.params.id}})
+    res.status(204).end()
   })
 
   return sprints

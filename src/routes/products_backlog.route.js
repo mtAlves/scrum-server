@@ -23,7 +23,9 @@ module.exports = (ProductsBacklog) => {
   })
 
   productsBacklog.post('/', auth, (req, res, next) => {
-    ProductsBacklog.create(req.body)
+    ProductsBacklog.create(req.body).then(backlog => {
+      res.status(201).send(backlog)
+    })
   })
 
   productsBacklog.put('/:id', auth, (req, res, next) => {
@@ -31,12 +33,15 @@ module.exports = (ProductsBacklog) => {
       productBacklog.name = req.body.name
       productBacklog.importance = req.body.importance
       productBacklog.product_id = req.body.product_id
-      productBacklog.save({fields: ['name', 'importance', 'product_id']})
+      productBacklog.status = req.body.status
+      productBacklog.save({fields: ['name', 'importance', 'product_id', 'status']})
     })
+    res.status(204).end()
   })
 
   productsBacklog.delete('/:id', auth, (req, res, next) => {
     ProductsBacklog.destroy({ where: {id: req.params.id}})
+    res.status(204).end()
   })
 
   return productsBacklog

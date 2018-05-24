@@ -23,7 +23,9 @@ module.exports = (Impediments) => {
   })
 
   impediments.post('/', auth, (req, res, next) => {
-    Impediments.create(req.body)
+    Impediments.create(req.body).then(impediment => {
+      res.status(201).send(impediment)
+    })
   })
 
   impediments.put('/:id', auth, (req, res, next) => {
@@ -34,10 +36,12 @@ module.exports = (Impediments) => {
       impediment.status = req.body.status
       impediment.save({fields: ['name', 'sprint_id', 'task_id', 'status']})
     })
+    res.status(204).end()
   })
 
   impediments.delete('/:id', auth, (req, res, next) => {
     Impediments.destroy({ where: {id: req.params.id}})
+    res.status(204).end()
   })
 
   return impediments

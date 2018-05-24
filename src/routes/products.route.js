@@ -23,7 +23,9 @@ module.exports = (Products) => {
   })
 
   products.post('/', auth, (req, res, next) => {
-    Products.create(req.body)
+    Products.create(req.body).then(created => {
+      res.status(201).send(created)
+    })
   })
 
   products.put('/:id', auth, (req, res, next) => {
@@ -31,14 +33,15 @@ module.exports = (Products) => {
       product.name = req.body.name
       product.started = req.body.started
       product.ended = req.body.ended
-      product.sprint_id = req.body.sprint_id
       product.product_owner_id = req.body.product_owner_id
-      product.save({fields: ['name', 'started', 'ended', 'sprint_id', 'product_owner_id']})
+      product.save({fields: ['name', 'started', 'ended', 'product_owner_id']})
     })
+    res.status(204).end()
   })
 
   products.delete('/:id', auth, (req, res, next) => {
     Products.destroy({ where: {id: req.params.id}})
+    res.status(204).end()
   })
 
   return products

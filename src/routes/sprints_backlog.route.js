@@ -24,7 +24,9 @@ module.exports = (SprintsBacklog) => {
 
 
   sprintsBacklog.post('/', auth, (req, res, next) => {
-    SprintsBacklog.create(req.body)
+    SprintsBacklog.create(req.body).then(backlog => {
+      res.status(201).send(backlog)
+    })
   })
 
   sprintsBacklog.put('/:id', auth, (req, res, next) => {
@@ -33,10 +35,12 @@ module.exports = (SprintsBacklog) => {
       sprintBacklog.sprint_id = req.body.sprint_id
       sprintBacklog.save({fields: ['name', 'sprint_id']})
     })
+    res.status(204).end()
   })
 
   sprintsBacklog.delete('/:id', auth, (req, res, next) => {
     SprintsBacklog.destroy({ where: {id: req.params.id}})
+    res.status(204).end()
   })
 
   return sprintsBacklog

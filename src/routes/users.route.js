@@ -29,7 +29,7 @@ module.exports = (Users) => {
           }).status(201).end()
         })
       } else {
-        res.status(409).end('username already in database')
+        res.status(409).send({ message: 'username already in database' })
       }
     })
   })
@@ -43,10 +43,12 @@ module.exports = (Users) => {
       user.avatar = req.body.avatar
       user.save({fields: ['name', 'username', 'email', 'password', 'avatar']})
     })
+    res.status(204).end()
   })
 
   users.delete('/:id', auth, (req, res, next) => {
     Users.destroy({ where: {id: req.params.id}})
+    res.status(204).end()
   })
 
   return users

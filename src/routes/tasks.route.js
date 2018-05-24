@@ -23,7 +23,9 @@ module.exports = (Tasks) => {
   })
 
   tasks.post('/', auth, (req, res, next) => {
-    Tasks.create(req.body)
+    Tasks.create(req.body).then(task => {
+      res.status(201).send(task)
+    })
   })
 
   tasks.put('/:id', auth, (req, res, next) => {
@@ -33,12 +35,15 @@ module.exports = (Tasks) => {
       task.started = req.body.started
       task.ended = req.body.ended
       task.sprint_id = req.body.sprint_id
-      task.save({fields: ['name', 'status', 'started', 'ended', 'sprint_id']})
+      task.sprint_backlog_id = req.body.sprint_backlog_id
+      task.save({fields: ['name', 'status', 'started', 'ended', 'sprint_id', 'sprint_backlog_id']})
     })
+    res.status(204).end()
   })
 
   tasks.delete('/:id', auth, (req, res, next) => {
     Tasks.destroy({ where: {id: req.params.id}})
+    res.status(204).end()
   })
 
   return tasks
