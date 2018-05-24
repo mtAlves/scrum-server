@@ -29,8 +29,16 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
+    },
+    sprint_backlog_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'sprints_backlog',
+        key: 'id'
+      }
     }
   }, {
     tableName: 'tasks',

@@ -23,6 +23,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'products',
         key: 'id'
       }
+    },
+    status: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     tableName: 'products_backlog',
